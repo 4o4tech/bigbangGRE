@@ -13,6 +13,26 @@ namespace bigbangGRE
 
             // Set our view from the "main" layout resource
             // SetContentView (Resource.Layout.Main);
+
+            Button submit = FindViewById<Button>(Resource.Id.submit_button);
+
+
+            submit.Click += delegate
+            {
+
+            };
+
+
+
+        }
+
+        protected string putRequest()
+        {
+
+
+
+
+            return null;
         }
     }
 }

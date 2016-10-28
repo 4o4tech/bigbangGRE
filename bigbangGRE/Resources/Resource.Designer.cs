@@ -64,7 +64,7 @@ namespace bigbangGRE
 			public const int Edittext = 2131034112;
 			
 			// aapt resource value: 0x7f050001
-			public const int button1 = 2131034113;
+			public const int submit_button = 2131034113;
 			
 			static Id()
 			{
