@@ -14,7 +14,8 @@ public final class R {
         public static final int icon=0x7f020000;
     }
     public static final class id {
-        public static final int Edittext=0x7f050000;
+        public static final int InputText=0x7f050000;
+        public static final int OutputText=0x7f050002;
         public static final int submit_button=0x7f050001;
     }
     public static final class layout {
