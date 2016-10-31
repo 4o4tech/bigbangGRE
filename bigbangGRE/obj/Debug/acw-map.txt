@@ -1,0 +1,8 @@
+bigbangGRE.Activity1, bigbangGRE;md57bffac5b5131250284a9f7433d8ab990.Activity1
+bigbangGRE.Activity1, bigbangGRE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md57bffac5b5131250284a9f7433d8ab990.Activity1
+bigbangGRE.Activity1;md57bffac5b5131250284a9f7433d8ab990.Activity1
+bigbanggre.Activity1;md57bffac5b5131250284a9f7433d8ab990.Activity1
+bigbangGRE.MainActivity, bigbangGRE;md57bffac5b5131250284a9f7433d8ab990.MainActivity
+bigbangGRE.MainActivity, bigbangGRE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md57bffac5b5131250284a9f7433d8ab990.MainActivity
+bigbangGRE.MainActivity;md57bffac5b5131250284a9f7433d8ab990.MainActivity
+bigbanggre.MainActivity;md57bffac5b5131250284a9f7433d8ab990.MainActivity
