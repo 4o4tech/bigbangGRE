@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/submit_button"
         android:layout_marginLeft="235dp" />
-    <TextView
+    <EditText
         android:text="Result"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="match_parent"
@@ -36,7 +36,7 @@
         android:id="@+id/OutputText"
         android:height="200dp"
         android:gravity="top"
-        android:textSize="15dp"
+        android:textSize="8dp"
         android:textStyle="normal"
         android:textColor="@android:color/black"
         android:background="@android:color/background_light"

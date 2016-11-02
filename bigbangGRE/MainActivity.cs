@@ -1,24 +1,15 @@
-﻿using System;
-using System.Json;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 using System.Net.Http.Headers;
 using System.Net.Http;
 using System.Web;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-
-
+using System.Threading.Tasks;
+using System.Runtime.Serialization.Json;
 
 using Android.App;
 using Android.Widget;
 using Android.OS;
 using Android.Util;
-using System.Net;
 using System.IO;
-using System.Threading.Tasks;
-using System.Runtime.Serialization.Json;
 
 namespace bigbangGRE
 {
@@ -60,7 +51,7 @@ namespace bigbangGRE
 
 
         /*
-        // Gets weather data from the passed URL.
+        // Gets info data from the passed URL.
         private async Task<JsonValue> FetchSentenceAsync(string url)
         {
             // Create an HTTP web request using the URL:
@@ -100,7 +91,7 @@ namespace bigbangGRE
 
      
 
-        static async Task<string> MakeRequest(string inputStr){
+         async Task<string> MakeRequest(string inputStr){
                 var client = new HttpClient();
                 var queryString = HttpUtility.ParseQueryString(string.Empty);
 
@@ -111,26 +102,50 @@ namespace bigbangGRE
 
                 HttpResponseMessage response;
 
-                var reqBody = new Body
-                {
+            string sendJson = toJson(inputStr);
 
-                /*
+            // Request body
+            byte[] byteData = Encoding.UTF8.GetBytes(sendJson);
+
+            using (var content = new ByteArrayContent(byteData))
+                {
+                    content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                    response = await client.PostAsync(uri, content);
+                
+                }
+
+            Log.Wtf("debug", response.ToString());
+
+            return  response.ToString();
+        
+        }
+
+        public string toJson(string inputStr)
+        {
+
+         /*
                     
                 "language" : "en",
 		        "analyzerIds" : ["4fa79af1-f22c-408d-98bb-b7d7aeef7f04", "22a6b758-420f-4745-8a3c-46835a67c0d2"],
 		        "text" : "Hi, Macus! How are you today? Can you help me solve some GRE question?" 
                      
-                */
-                    language = "en",
-                    analyzerIds = "",
-                    text = inputStr
-                };
+         */
 
 
-            DataContractJsonSerializer js = new DataContractJsonSerializer(typeof(Body));
+            Json jsonStr = new Json()
+            {
+                language = "en",
+                analyzerIds = "",
+                text = inputStr
+
+            };
+
+
+            //序列化
+            DataContractJsonSerializer js = new DataContractJsonSerializer(typeof(Json));
             MemoryStream msObj = new MemoryStream();
             //将序列化之后的Json格式数据写入流中
-            js.WriteObject(msObj, reqBody);
+            js.WriteObject(msObj, jsonStr);
             msObj.Position = 0;
             //从0这个位置开始读取流中的数据
             StreamReader sr = new StreamReader(msObj, Encoding.UTF8);
@@ -138,31 +153,21 @@ namespace bigbangGRE
             sr.Close();
             msObj.Close();
 
-            // Request body
-            byte[] byteData = Encoding.UTF8.GetBytes(json);
-
-                using (var content = new ByteArrayContent(byteData))
-                {
-                    content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                    response = await client.PostAsync(uri, content);
-                
-                }
-
-           return  response.ToString();
+            return json;
         }
 
 
-        public class Body
-        {
-            
-            public string language { get; set; }
-          
-            public string analyzerIds { get; set; }
+    }
 
-            public string text { get; set; }
 
-        }
+    public class Json
+    {
 
+        public string language { get; set; }
+
+        public string analyzerIds { get; set; }
+
+        public string text { get; set; }
 
     }
 }
