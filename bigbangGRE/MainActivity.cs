@@ -1,15 +1,16 @@
 ﻿using System.Text;
 using System.Net.Http.Headers;
 using System.Net.Http;
-using System.Web;
 using System.Threading.Tasks;
 using System.Runtime.Serialization.Json;
+
 
 using Android.App;
 using Android.Widget;
 using Android.OS;
 using Android.Util;
-using System.IO;
+using Newtonsoft.Json;
+using System.Web;
 
 namespace bigbangGRE
 {
@@ -89,9 +90,8 @@ namespace bigbangGRE
 
         */
 
-     
 
-         async Task<string> MakeRequest(string inputStr){
+         public async Task<string> MakeRequest(string inputStr){
                 var client = new HttpClient();
                 var queryString = HttpUtility.ParseQueryString(string.Empty);
 
@@ -123,35 +123,24 @@ namespace bigbangGRE
         public string toJson(string inputStr)
         {
 
-         /*
-                    
-                "language" : "en",
-		        "analyzerIds" : ["4fa79af1-f22c-408d-98bb-b7d7aeef7f04", "22a6b758-420f-4745-8a3c-46835a67c0d2"],
-		        "text" : "Hi, Macus! How are you today? Can you help me solve some GRE question?" 
-                     
-         */
+            /*
+
+                   "language" : "en",
+                   "analyzerIds" : ["4fa79af1-f22c-408d-98bb-b7d7aeef7f04", "22a6b758-420f-4745-8a3c-46835a67c0d2"],
+                   "text" : "Hi, Macus! How are you today? Can you help me solve some GRE question?" 
+
+            */
 
 
-            Json jsonStr = new Json()
-            {
-                language = "en",
-                analyzerIds = "",
-                text = inputStr
+            toJson jsonStr = new toJson();
+            jsonStr.language = "en";
+            jsonStr.analyzerIds = new string[]{"4fa79af1-f22c-408d-98bb-b7d7aeef7f04", "22a6b758-420f-4745-8a3c-46835a67c0d2"};
+            jsonStr.text = inputStr;
 
-            };
+          
+            string json = JsonConvert.SerializeObject(jsonStr);
 
-
-            //序列化
-            DataContractJsonSerializer js = new DataContractJsonSerializer(typeof(Json));
-            MemoryStream msObj = new MemoryStream();
-            //将序列化之后的Json格式数据写入流中
-            js.WriteObject(msObj, jsonStr);
-            msObj.Position = 0;
-            //从0这个位置开始读取流中的数据
-            StreamReader sr = new StreamReader(msObj, Encoding.UTF8);
-            string json = sr.ReadToEnd();
-            sr.Close();
-            msObj.Close();
+         //   toJson deserializedStr = JsonConvert.DeserializeObject<toJson>(json);
 
             return json;
         }
@@ -160,12 +149,12 @@ namespace bigbangGRE
     }
 
 
-    public class Json
+    public class toJson
     {
 
         public string language { get; set; }
 
-        public string analyzerIds { get; set; }
+        public string[] analyzerIds{ get; set; }
 
         public string text { get; set; }
 
