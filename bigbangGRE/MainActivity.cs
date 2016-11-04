@@ -111,13 +111,22 @@ namespace bigbangGRE
                 {
                     content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                     response = await client.PostAsync(uri, content);
-                
+        
                 }
 
-            Log.Wtf("debug", response.ToString());
 
-            return  response.ToString();
-        
+
+            string deValue = null ;
+
+
+            if (response.StatusCode.ToString() == "OK")
+            {
+                var responseResult = response.Content.ReadAsStringAsync().Result;
+                deValue = HttpUtility.UrlDecode(responseResult.ToString());
+
+                return deValue;
+            }
+            return "No Value";
         }
 
         public string toJson(string inputStr)
